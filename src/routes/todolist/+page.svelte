@@ -50,7 +50,7 @@
 	function confirmarExclusao() {
 		const i = tarefas.indexOf(tarefaExcluindo);
 		if (i >= 0) tarefas.splice(i, 1);
-		tarefaExcluindo = undefined; 
+		tarefaExcluindo = undefined;
 	}
 
 	function alterarStatus(tarefa, status) {
