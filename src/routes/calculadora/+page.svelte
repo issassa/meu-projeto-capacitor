@@ -6,7 +6,7 @@
      ctrl+H substituição 
      MVP -> M (minimun) V (Value) P (Product)-->
     <!-- 04.06
-     implemente mais operações na sua calculadora-->
+     implemente mais operações na sua calculadora: (10.06) inverter sinal, quadado, rais quadrada, arredondar, log base 10, resto da divisão, apagar o último número e clear-->
 
 <script>
     let display=$state('');
@@ -22,6 +22,8 @@
     function calc() {
         display=eval(display);
     } 
+
+
 </script>
 
 <div class="text-center mt-3">
@@ -30,24 +32,27 @@
     <tbody>
         <tr>
             <td><button type="button" class="btn bg-body-secondary w-100" onclick={()=>clear()}>C</button></td>
+            <td><button type="button" class="btn bg-danger-subtle w-100" onclick={()=>press('/')}>⇄</button></td>
             <td><button type="button" class="btn bg-danger-subtle w-100" onclick={()=>press('(')}>&lpar;</button></td>
             <td><button type="button" class="btn bg-danger-subtle w-100" onclick={()=>press(')')}>&rpar;</button></td>
-            <td><button type="button" class="btn bg-danger-subtle w-100" onclick={()=>press('/')}>/</button></td>
+            <td><button type="button" class="btn bg-body-secondary w-100" onclick={()=>press('/')}>÷</button></td>
+            <td><button type="button" class="btn bg-body-secondary w-100" onclick={()=>press('mod')}>mod</button></td>
+
         </tr>
         <tr>
             <td><button type="button" class="btn bg-danger-subtle w-100" onclick={()=>press(7)}>7</button></td>
             <td><button type="button" class="btn bg-danger-subtle w-100" onclick={()=>press(8)}>8</button></td>
             <td><button type="button" class="btn bg-danger-subtle w-100" onclick={()=>press(9)}>9</button></td>
             <td><button type="button" class="btn bg-body-secondary w-100" onclick={()=>press('*')}>x</button></td>
-            <td><button type="button" class="btn bg-body-secondary w-100" onclick={()=>press('^')}>^</button></td>
-
+            <td><button type="button" class="btn bg-body-secondary w-100" onclick={()=>press('√')}>√</button></td>
+            <td><button type="button" class="btn bg-body-secondary w-100" onclick={()=>press('√')}>○</button></td>
         </tr>
         <tr>
             <td><button type="button" class="btn bg-danger-subtle w-100" onclick={()=>press(4)}>4</button></td>
             <td><button type="button" class="btn bg-danger-subtle w-100" onclick={()=>press(5)}>5</button></td>
             <td><button type="button" class="btn bg-danger-subtle w-100" onclick={()=>press(6)}>6</button></td>
             <td><button type="button" class="btn bg-body-secondary w-100" onclick={()=>press('-')}>-</button></td>
-            <td><button type="button" class="btn bg-body-secondary w-100" onclick={()=>press('*')}>%</button></td>
+            <td><button type="button" class="btn bg-body-secondary w-100" onclick={()=>press('x²')}>x²</button></td>
 
         </tr>
         <tr>
@@ -56,11 +61,15 @@
             <td><button type="button" class="btn bg-danger-subtle w-100" onclick={()=>press(3)}>3</button></td>
             <td rowspan="2" style="height: 0;">
                 <button type="button" class="btn bg-body-secondary w-100 h-100" onclick={()=>press('+')}>+</button></td>
+            <td><button type="button" class="btn bg-body-secondary w-100" onclick={()=>log10('')}>log</button></td>
+
+
         </tr>
         <tr>
             <td><button type="button" class="btn bg-danger-subtle w-100" onclick={()=>press(0)}>0</button></td>
             <td><button type="button" class="btn bg-danger-subtle w-100" onclick={()=>press('.')}>.</button></td>
             <td><button type="button" class="btn bg-danger-subtle w-100" onclick={()=>calc()}>=</button></td>
+            <td><button type="button" class="btn bg-body-secondary w-100" onclick={()=>press('√')}>←</button></td>
         </tr>
     </tbody>
 </table>
