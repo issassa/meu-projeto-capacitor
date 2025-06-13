@@ -1,4 +1,4 @@
-    <!-- 03.06
+  <!--  03.06
      fzr um app de calculadora  
      ctrl+espaço ativa o "autocomplete" na linha atual 
      tr*5(indica que queremos 5 linhas) > td*4(indica que queremos 4 células em cada linha) => tr*5>td*4 
