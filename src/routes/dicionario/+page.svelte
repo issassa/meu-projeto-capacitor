@@ -1,5 +1,3 @@
-<!-- DESRIÇÃO DO CAP09 -->
-
 <script>
 	import { dicionario } from "$lib/dicionario";
 
