@@ -1,4 +1,10 @@
 <script>
+	/** falta:
+	 * lista de palavras por letras (a-z)
+	 * palavra aleatória -> funcionar
+	 * botão para voltar a pág inicial -> funcionar
+	 */
+
 	import { dicionario } from '$lib/dicionario';
 
 	let palavra = $state('');
@@ -20,26 +26,25 @@
 </script>
 
 <br />
-	<div class="card text-center mb-3" style="width: 21rem;">
-		<div class="card-body text-center">
-			<h1 class="card-title"><b>Dicionário <i class="bi bi-rocket"></i></b></h1>
-			<br />
-			<div class="input-group mb-3">
-				<input
-					class="form-control"
-					placeholder="digite uma palavra..."
-					aria-label="palavra"
-					aria-describedby="button-addon2"
-					oninput={buscar}
-					bind:value={palavra}
-				/>
-			</div>
-			<p class="card-text">aa</p>
-			<div class="text-justify"></div>
-			<ul>
-				{#each filtradas as termo}
-					<li><a href="/dicionario/{termo.palavra}">{termo?.palavra}</a></li>
-				{/each}
-			</ul>
+<div class="card mb-3" style="width: 21rem;">
+	<div class="card-body text-center">
+		<h1 class="card-title"><b>Dicionário <i class="bi bi-rocket"></i></b></h1>
+		<br />
+		<div class="input-group mb-3">
+			<input
+				class="form-control"
+				placeholder="digite uma palavra..."
+				aria-label="palavra"
+				aria-describedby="button-addon2"
+				oninput={buscar}
+				bind:value={palavra}
+			/>
 		</div>
+		<button class="btn btn-outline-secondary" disabled><b>palavra aleatória</b></button>
+		<br />
+		<br />
+		{#each filtradas as termo}
+			<p><a href="/dicionario/{termo.palavra}">{termo?.palavra}</a></p>
+		{/each}
 	</div>
+</div>
