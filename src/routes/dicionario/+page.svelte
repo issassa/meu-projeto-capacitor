@@ -40,7 +40,7 @@
 				bind:value={palavra}
 			/>
 		</div>
-		<button class="btn btn-outline-secondary" disabled><b>palavra aleatória</b></button>
+		<button class="btn btn-outline-secondary"><b>palavra aleatória</b></button>
 		<br />
 		<br />
 		{#each filtradas as termo}

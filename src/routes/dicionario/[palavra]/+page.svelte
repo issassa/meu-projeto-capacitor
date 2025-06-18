@@ -14,6 +14,6 @@
     <p><b>Definição:</b></p>
 	<p>{data.palavra[0].definicao}</p>
     <br>
-    <button class="btn btn-outline-secondary" disabled><b>voltar a página inicial</b></button>
+    <button type="button" class="btn btn-outline-secondary"><b>voltar a página inicial</b></button> 
     <br>
 </div>

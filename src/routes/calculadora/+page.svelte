@@ -5,9 +5,7 @@
      tab/shift+tab para alternar entre os campos cinzas que aparecem inicialmente após a criação das linhas e células; dps de executar o código acima por exemplo 
      ctrl+H substituição 
      MVP -> M (minimun) V (Value) P (Product)-->
-    <!-- 04.06
-     implemente mais operações na sua calculadora: (10.06) inverter sinal, quadado, rais quadrada, arredondar, log base 10, resto da divisão, apagar o último número e clear-->
-
+    
 <script>
     let display=$state('');
 
