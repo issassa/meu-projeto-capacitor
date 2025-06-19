@@ -14,6 +14,8 @@
     <p><b>Definição:</b></p>
 	<p>{data.palavra[0].definicao}</p>
     <br>
-    <button type="button" class="btn btn-outline-secondary"><b>voltar a página inicial</b></button> 
+	<a href="/dicionario" style="text-align: center;">
+    <button style="text-itens-center" type="button" class="btn btn-outline-secondary"><b>voltar a página inicial</b></button> 
+	</a>
     <br>
 </div>
