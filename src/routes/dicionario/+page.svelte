@@ -38,7 +38,7 @@
 <br />
 <div class="card mb-3" style="width: 21rem;">
 	<div class="card-body text-center">
-		<h1 class="card-title"><b>Dicionário <i class="bi bi-rocket"></i></b></h1>
+		<h2 class="card-title"><b>Dicionário <i class="bi bi-alphabet-uppercase"></i></b></h2>
 		<br />
 		<div class="input-group mb-3">
 			<input

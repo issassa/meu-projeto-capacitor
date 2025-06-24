@@ -62,7 +62,11 @@
 	});
 </script>
 
-<div class="fixed-top pt-5" style="z-index: 1020;">
+<br />
+<div class="text-center">
+	<h2><b>Lista de Tarefas</b> <i class="bi bi-card-checklist"></i></h2>
+</div>
+<div class="fixed pt-4" style="z-index: 1020;">
 	<form class="container-fluid input-group px-4 pt-3" onsubmit={adicionarTarefa}>
 		<input class="form-control form-control-lg" placeholder="Nova tarefa" bind:value={novaTarefa} />
 		<button type="submit" class="btn btn-primary input-group-text" aria-label="adicionar">
