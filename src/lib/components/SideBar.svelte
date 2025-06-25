@@ -6,10 +6,12 @@
     <div class="offcanvas-body">
       <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
         <li class="nav-item"><a class="nav-link active" href="/todolist">Lista de Tarefas <i class="bi bi-card-checklist"></i></a></li>
-        <li class="nav-item"><a class="nav-link active" href="/senha">Gerador de Senhas </a></li>
+        <li class="nav-item"><a class="nav-link active" href="/gerador-senha">Gerador de Senhas <i class="bi bi-database-lock"></i></a></li>
         <li class="nav-item"><a class="nav-link active" href="/calculadora">Calculadora <i class="bi bi-calculator"></i></a></li>
         <li class="nav-item"><a class="nav-link active" href="/dicionario">Dicionário <i class="bi bi-alphabet-uppercase"></i></a></li>
         <li class="nav-item"><a class="nav-link active" href="/devrg">DevRG <i class="bi bi-arrow-repeat"></i></a></li>
+        <li class="nav-item"><a class="nav-link active" href="/conversor-unidades">Conversor de Unidades <i class="bi bi-unity"></i></a></li>
+
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown">Dropdown</a>
