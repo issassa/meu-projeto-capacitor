@@ -6,28 +6,30 @@
 	 * - cards com links + foto + descrição
 	 */
 </script>
-<br>
+
+<br />
 <div class="nome" style="color: olive;">
-<h1><b>Isa.Bet</b></h1>
+	<h1><b>Isa.Bet</b></h1>
 </div>
 <p>inform</p>
-<br>
+<br />
 <div class="row row-cols-1 row-cols-md-2 g-4">
 	<div class="col">
-		<div class="card">
+		<div class="card" style=" box-shadow: 0 0.125rem 0.25rem rgba(0.075, 0.075, 0.075, 0.075);">
 			<div class="card-body">
 				<h5 class="card-title">
 					<a href="/n" style="color: olive;">Números</a>
 					<i class="bi bi-dice-4" style="color: olive;"></i>
 				</h5>
 				<p class="card-text">
-					Gere infinitos <b>números aleatótios</b>. Não perca seu tempo pensando, deixa que a Isa.Bet te ajuda.
+					Gere infinitos <b>números aleatótios</b>. Não perca seu tempo pensando, deixa que a
+					Isa.Bet te ajuda.
 				</p>
 			</div>
 		</div>
 	</div>
 	<div class="col">
-		<div class="card">
+		<div class="card" style=" box-shadow: 0 0.125rem 0.25rem rgba(0.075, 0.075, 0.075, 0.075);">
 			<div class="card-body">
 				<h5 class="card-title"><a href="/r" style="color: olive;">Roleta </a></h5>
 				<p class="card-text">
@@ -37,42 +39,10 @@
 		</div>
 	</div>
 	<div class="col">
-		<div class="card">
+		<div class="card" style=" box-shadow: 0 0.125rem 0.25rem rgba(0.075, 0.075, 0.075, 0.075);">
 			<div class="card-body">
 				<h5 class="card-title"><a href="/c-c" style="color: olive;">Cara ou Coroa </a></h5>
-				<p class="card-text">
-					aaa
-				</p>
-			</div>
-		</div>
-	</div>
-	<div class="col">
-		<div class="card">
-			<div class="card-body">
-				<h5 class="card-title"><a href="/d" style="color: olive;">Doce </a></h5>
-				<p class="card-text">
-					bbb
-				</p>
-			</div>
-		</div>
-	</div>
-	<div class="col">
-		<div class="card">
-			<div class="card-body">
-				<h5 class="card-title"><a href="/f-d" style="color: olive;">Filme Disney </a></h5>
-				<p class="card-text">
-					ccc
-				</p>
-			</div>
-		</div>
-	</div>
-	<div class="col">
-		<div class="card">
-			<div class="card-body">
-				<h5 class="card-title"><a href="/p-d" style="color: olive;">Princesa Disney</a></h5>
-				<p class="card-text">
-					ddd
-				</p>
+				<p class="card-text">aaa</p>
 			</div>
 		</div>
 	</div>
