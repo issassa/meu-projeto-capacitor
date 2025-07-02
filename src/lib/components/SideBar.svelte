@@ -11,6 +11,8 @@
         <li class="nav-item"><a class="nav-link active" href="/dicionario">Dicionário <i class="bi bi-alphabet-uppercase"></i></a></li>
         <li class="nav-item"><a class="nav-link active" href="/aleatorio">? <i class="bi bi-arrow-repeat"></i></a></li>
         <li class="nav-item"><a class="nav-link active" href="/conversor-unidades">Conversor de Unidades <i class="bi bi-unity"></i></a></li>
+        <li class="nav-item"><a class="nav-link active" href="/jogo-da-velha">Jogo da Velha <i class="bi bi-x-circle"></i></a></li>
+
 
 
         <li class="nav-item dropdown">
