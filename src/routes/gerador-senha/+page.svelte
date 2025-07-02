@@ -1,216 +1,277 @@
-<script> 
-	// Faça um código JavaScript que crie um gerador de senhas numéricas aleatórias
-	// com um botão para gerar a nova senha
-	// um botão para copiar a senha criada
-	// slider e campo de tamanho da senha
-	// caixas de seleção (checkbox) para incluir classes de caracteres:
-	//       letras maiúsculas
-	//       minúsculas
-	//       símbolos
-	//       dígitos
-	// botão que habilita a geração de várias senhas de uma vez
-	// com cada senha em uma linha
-	// e com botão de copiar
+<script>
+    /**
+     * @file gerador-senha/+page.svelte
+     * @description Componente Svelte para um gerador de senhas aleatórias.
+     * Permite personalizar o comprimento, incluir tipos de caracteres e gerar múltiplas senhas.
+     */
 
-	// Função para gerar senha aleatória
+    // Variáveis reativas para as opções do gerador de senha.
+    let tamsenha = $state(12); // Comprimento da senha (padrão: 12).
+    let contsenha = $state(1); // Quantidade de senhas a serem geradas (padrão: 1).
+    let incminus = $state(true); // Incluir letras minúsculas (padrão: true).
+    let incmaius = $state(true); // Incluir letras maiúsculas (padrão: true).
+    let incnum = $state(true); // Incluir números (padrão: true).
+    let incsimb = $state(false); // Incluir símbolos (padrão: false).
+    // Array reativo para armazenar as senhas geradas.
+    let senhasGeradas = $state([]);
 
-	// estilizar e mudar o nome das variáveis
+    // Constantes com os conjuntos de caracteres disponíveis.
+    const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+    const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    const numberChars = '0123456789';
+    const symbolChars = '!@#$%^&*()_+[]{}|;:,.<>?';
 
-	let tamsenha = '';
-	let contsenha = 1;
-	let incminus = true;
-	let incmaius = true;
-	let incnum = true;
-	let incsimb = true;
+    /**
+     * Gera uma única senha aleatória com base nas opções selecionadas.
+     * @returns {string} A senha gerada ou uma string vazia se nenhuma opção for selecionada.
+     */
+    function gerarsenha() {
+        let availableChars = '';
+        // Constrói a string de caracteres disponíveis com base nas checkboxes marcadas.
+        if (incminus) availableChars += lowercaseChars;
+        if (incmaius) availableChars += uppercaseChars;
+        if (incnum) availableChars += numberChars;
+        if (incsimb) availableChars += symbolChars;
 
-	const letramin = 'abcdefghijklmnopqrstuvwxyz';
-	const letramai = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	const numeros = '0123456789';
-	const simbolos = '!@#$%^&*()_-+=<>?';
+        // Se nenhum tipo de caractere for selecionado ou o tamanho da senha for inválido, retorna vazio.
+        if (availableChars.length === 0 || tamsenha <= 0) {
+            return '';
+        }
 
-	function gerarsenha() {
-		let caracteres = '';
-		let senha = '';
+        let password = '';
+        // Gera a senha escolhendo caracteres aleatoriamente.
+        for (let i = 0; i < tamsenha; i++) {
+            const randomIndex = Math.floor(Math.random() * availableChars.length);
+            password += availableChars[randomIndex];
+        }
+        return password;
+    }
 
-		if (incminus) caracteres += letramin;
-		if (incmaius) caracteres += letramai;
-		if (incnum) caracteres += numeros;
-		if (incsimb) caracteres += simbolos;
+    /**
+     * Gera múltiplas senhas e armazena no array 'senhasGeradas'.
+     * Chamado quando o botão "gerar senha" é clicado.
+     */
+    function variassenhas() {
+        // Limpa as senhas geradas anteriormente.
+        senhasGeradas = [];
+        // Loop para gerar a quantidade de senhas especificada.
+        for (let i = 0; i < contsenha; i++) {
+            const newPassword = gerarsenha();
+            if (newPassword) { // Adiciona a senha apenas se não for vazia.
+                senhasGeradas.push(newPassword);
+            }
+        }
+    }
 
-		if (!caracteres) return ''; // sem opção selec.
-
-		for (let i = 0; i < tamsenha; i++) {
-			senha += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
-		}
-		return senha;
-	}
-
-	function variassenhas() {
-		let senhas = [];
-		for (let i = 0; i < contsenha; i++) {
-			senhas.push(gerarsenha());
-		}
-		return senhas;
-	}
-
-	function copiarsenha(senha) {
-		navigator.clipboard
-			.writeText(senha)
-			.then(() => {
-				alert('Senha copiada para a área de transferência!');
-			})
-			.catch((err) => {
-				console.error('Erro ao copiar a senha: ', err);
-			});
-	}
-
-	let senhas = variassenhas();
+    /**
+     * Copia a senha fornecida para a área de transferência do usuário.
+     * @param {string} senha A senha a ser copiada.
+     */
+    async function copiarsenha(senha) {
+        try {
+            await navigator.clipboard.writeText(senha);
+            alert('Senha copiada para a área de transferência!'); // Feedback para o usuário.
+        } catch (err) {
+            console.error('Erro ao copiar senha: ', err);
+            alert('Não foi possível copiar a senha.'); // Feedback de erro.
+        }
+    }
 </script>
 
-<main>
-	<div class="card text-center" style="width: 34rem; margin: 0 auto;">
-		<div class="card-body" style="background-color: #dbead5;">
-			<h1><b>Gerador de Senhas <i class="bi bi-database-lock"></i></b></h1>
-			<p><b>Gere senhas extremamente secretas, mantenha sua segurança🔐!</b></p>
-			<br />
-			<div class="corpo">
-				<div>
-					<label for="tamsenha">Insira o comprimento da senha: </label>
-					<input type="number" id="tamsenha" bind:value={tamsenha} min="4" max="32" />
-				</div>
-
-				<div>
-					<label for="contsenha">Insira o número de senhas: </label>
-					<input type="number" id="contsenha" bind:value={contsenha} min="1" max="4" />
-				</div>
-				<br />
-
-				<p><b>Crie senhas diversas! Selecione os itens desejados: </b></p>
-
-				<div>
-					<label>
-						<input type="checkbox" bind:checked={incminus} /> incluir letras minúsculas
-					</label>
-				</div>
-				<div>
-					<label>
-						<input type="checkbox" bind:checked={incmaius} /> incluir letras maiúsculas
-					</label>
-				</div>
-				<div>
-					<label>
-						<input type="checkbox" bind:checked={incnum} /> incluir números
-					</label>
-				</div>
-				<div>
-					<label>
-						<input type="checkbox" bind:checked={incsimb} /> incluir símbolos
-					</label>
-				</div>
-				<br />
-
-				<button on:click={() => (senhas = variassenhas())}>gerar senha</button>
-			</div>
-			<br />
-			<br />
-
-			{#if senhas.length > 0}
-				<h2><b>Senhas Geradas:</b></h2>
-				<p>Fique tranquilo(a), vou guardar segredo🤫!</p>
-				<ul>
-					{#each senhas as senha}
-						<br />
-						<li>
-							{senha}
-							<button on:click={() => copiarsenha(senha)}>copiar</button>
-						</li>
-					{/each}
-				</ul>
-			{/if}
-		</div>
-	</div>
-</main>
-
 <style>
-	main {
-		font-family: Arial, sans-serif;
-		padding: 20px;
-		text-align: center;
-		justify-content: center;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		min-height: 100vh;
-		background-color: #f3f4f6;
-	}
+    /* Estilos para o contêiner principal da página. */
+    .page-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centraliza horizontalmente. */
+        padding: 20px;
+        box-sizing: border-box;
+        min-height: calc(100vh - 56px); /* Ajusta para a altura da viewport. */
+        background-color: #f8f9fa; /* Cor de fundo clara. */
+    }
 
-	.card {
-		border-radius: 10px;
-		box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
-	}
+    /* Estilos do card principal que contém os controles do gerador. */
+    .password-generator-card {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 30px;
+        width: 100%;
+        max-width: 500px; /* Largura máxima. */
+        margin-bottom: 30px;
+        text-align: center;
+    }
 
-	input {
-		margin: 5px;
-		border-radius: 5px;
-		padding: 5px;
-	}
+    /* Estilos para o título. */
+    h2 {
+        color: #343a40;
+        margin-bottom: 10px;
+    }
 
-	button {
-		margin-top: 10px;
-		padding: 8px 16px;
-		background-color: #556b2f;
-		color: white;
-		border: none;
-		cursor: pointer;
-		border-radius: 8px; /* Borda arredondada */
-	}
+    /* Estilos para a descrição. */
+    p.description {
+        color: #6c757d;
+        margin-bottom: 25px;
+    }
 
-	button:hover {
-		background-color: #4b5e3b;
-	}
+    /* Estilos para os grupos de input de texto/número. */
+    .input-group {
+        margin-bottom: 20px;
+        text-align: left; /* Alinha o label e input à esquerda dentro do grupo. */
+    }
 
-	ul {
-		list-style-type: none;
-		padding: 0;
-		width: 100%;
-		max-width: 500px; /* Limita a largura  */
-		margin-bottom: 10px;
-		align-items: center;
-		margin: 0 auto;
-	}
+    .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #555;
+    }
 
-	li {
-		background: #dbead5;
-		padding: 10px;
-		margin-top: 5px;
-		display: flex;
-		flex-direction: row;
-		justify-content: space-between;
-		align-items: center;
-		border-radius: 10px;
-	}
+    .input-group input[type="number"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ced4da;
+        border-radius: 5px;
+        font-size: 1em;
+        box-sizing: border-box;
+    }
 
-	li button {
-		background-color: #556b2f;
-		color: white;
-		padding: 5px 10px;
-		border: none;
-		cursor: pointer;
-		border-radius: 5px;
-	}
+    /* Estilos para os grupos de checkboxes. */
+    .checkbox-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        text-align: left;
+    }
 
-	li button:hover {
-		background-color: #4b5e3b;
-	}
+    .checkbox-group input[type="checkbox"] {
+        margin-right: 10px;
+        transform: scale(1.2); /* Aumenta o tamanho do checkbox. */
+    }
 
-	.corpo {
-		text-align: left;
-		text-decoration: rgb(255, 255, 255);
-	}
+    .checkbox-group label {
+        font-weight: normal;
+        color: #343a40;
+        cursor: pointer;
+    }
 
-	h1, h2 {
-			color: #475928;
-		}
+    /* Estilos para o botão de geração de senhas. */
+    .btn-generate {
+        background-color: #007bff; /* Azul Bootstrap (primary). */
+        border-color: #007bff;
+        font-size: 1.2em;
+        padding: 12px 30px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        color: white;
+        font-weight: bold;
+        margin-top: 20px;
+    }
 
+    .btn-generate:hover {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
 
+    /* Estilos para a seção de resultados (senhas geradas). */
+    .results-section {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+        width: 100%;
+        max-width: 500px;
+        text-align: center;
+    }
+
+    .results-section h3 {
+        color: #343a40;
+        margin-bottom: 15px;
+    }
+
+    /* Estilos para a lista de senhas geradas. */
+    .password-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .password-item {
+        background-color: #e9ecef; /* Cor de fundo para cada item. */
+        padding: 10px 15px;
+        border-radius: 5px;
+        display: flex;
+        justify-content: space-between; /* Espaçamento entre senha e botão. */
+        align-items: center;
+        margin-bottom: 10px;
+        font-family: 'Courier New', Courier, monospace; /* Fonte monoespaçada para senhas. */
+        font-size: 1.1em;
+        color: #495057;
+    }
+
+    /* Estilos para o botão de copiar dentro do item da senha. */
+    .password-item button {
+        background-color: #6c757d; /* Cinza Bootstrap (secondary). */
+        border-color: #6c757d;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .password-item button:hover {
+        background-color: #5a6268;
+        border-color: #545b62;
+    }
 </style>
+
+<div class="page-container">
+    <div class="password-generator-card">
+        <h2>Gerador de Senhas <i class="bi bi-key-fill"></i></h2>
+        <p class="description">Crie senhas fortes e seguras rapidamente.</p>
+
+        <div class="input-group">
+            <label for="tamsenha">Comprimento da Senha:</label>
+            <input type="number" id="tamsenha" bind:value={tamsenha} min="4" max="32" />
+        </div>
+
+        <div class="input-group">
+            <label for="contsenha">Número de Senhas:</label>
+            <input type="number" id="contsenha" bind:value={contsenha} min="1" max="10" />
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="incminus" bind:checked={incminus} />
+            <label for="incminus">Incluir letras minúsculas (a-z)</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="incmaius" bind:checked={incmaius} />
+            <label for="incmaius">Incluir letras maiúsculas (A-Z)</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="incnum" bind:checked={incnum} />
+            <label for="incnum">Incluir números (0-9)</label>
+        </div>
+        <div class="checkbox-group">
+            <input type="checkbox" id="incsimb" bind:checked={incsimb} />
+            <label for="incsimb">Incluir símbolos (!@#$%...)</label>
+        </div>
+
+        <button class="btn-generate" onclick={variassenhas}>Gerar Senha</button>
+    </div>
+
+    {#if senhasGeradas.length > 0}
+        <div class="results-section password-generator-card">
+            <h3>Senhas Geradas:</h3>
+            <ul class="password-list">
+                {#each senhasGeradas as senha}
+                    <li class="password-item">
+                        <span>{senha}</span>
+                        <button onclick={() => copiarsenha(senha)}>Copiar</button>
+                    </li>
+                {/each}
+            </ul>
+        </div>
+    {/if}
+</div>

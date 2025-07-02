@@ -1,36 +1,37 @@
-  <!--  03.06
-     fzr um app de calculadora  
-     ctrl+espaço ativa o "autocomplete" na linha atual 
-     tr*5(indica que queremos 5 linhas) > td*4(indica que queremos 4 células em cada linha) => tr*5>td*4 
-     tab/shift+tab para alternar entre os campos cinzas que aparecem inicialmente após a criação das linhas e células; dps de executar o código acima por exemplo 
-     ctrl+H substituição 
-     MVP -> M (minimun) V (Value) P (Product)-->
-    
 <script>
+    // Declara uma variável reativa 'display' que armazenará a string exibida na calculadora.
+    // O modificador $state() indica que esta variável é reativa e suas mudanças irão atualizar a UI.
     let display=$state('');
 
+    // Função para limpar o display da calculadora.
     function clear() {
-        display=''; 
-    } 
-    
+        display='';
+    }
+   
+    // Função para remover o último caractere do display (backspace).
     function backspace() {
         display = display.slice(0, -1);
     }
 
+// Função para adicionar um caractere (número ou operador) ao display.
+    // 'c' é o caractere que será adicionado.
     function press(c) {
         display+=c;
-    } 
-    
+    }
+   
     function calc() {
         display=eval(display);
-    } 
+    }
+
 
     function invertesinal() {
         let num = parseFloat(display);
         if (!isNaN(num)) {
-            display = String(-num);
+            // Verifica se a conversão resultou em um número válido.
+            display = String(-num); // Inverte o sinal do número e o converte de volta para string.
         }
     }
+
 
     function quadrado() {
         let num = parseFloat(display);
@@ -39,14 +40,16 @@
             }
     }
 
+
     function raizquad() {
         let num = parseFloat(display);
             if (!isNaN(num)) {
                 if (num >= 0) {
                     display = String(Math.sqrt(num));
-                } 
+                }
             }    
     }
+
 
     function circle() {
         let num = parseFloat(display);
@@ -55,6 +58,7 @@
             }
     }
 
+
     function log10() {
         let num = parseFloat(display);
             if (!isNaN(num) && num > 0) {
@@ -62,10 +66,11 @@
             }
     }
 
+
 </script>
 <br>
 <div class="text-center">
-	<h2><b>Calculadora</b> <i class="bi bi-calculator"></i></h2>
+    <h2><b>Calculadora</b> <i class="bi bi-calculator"></i></h2>
 </div>
 <div class="text-center mt-3">
     <input class="form-control" readonly bind:value={display}/>
@@ -115,4 +120,5 @@
     </tbody>
 </table>
 </div>
+
 

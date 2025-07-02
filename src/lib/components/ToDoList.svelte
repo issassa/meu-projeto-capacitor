@@ -1,4 +1,9 @@
 <script>
+  // Declaração das propriedades reativas do componente ToDoList.
+  // 'tarefas' é um array de objetos de tarefa.
+  // 'tarefaEditando' armazena a tarefa que está sendo editada atualmente.
+  // 'conteudoTarefaEditando' é o conteúdo da tarefa sendo editada, usando $bindable() para ligação bidirecional.
+  // 'confirmarEdicao', 'cancelarEdicao', 'alterarStatus', 'editarTarefa', 'excluirTarefa' são funções passadas como propriedades para manipular as tarefas.
   let { tarefas, tarefaEditando, conteudoTarefaEditando = $bindable(), confirmarEdicao, cancelarEdicao, alterarStatus, editarTarefa, excluirTarefa } = $props();
 </script>
 
@@ -11,8 +16,8 @@
     {:else}
       <button class="btn btn-success input-group-text" aria-label="concluir" onclick={() => alterarStatus(tarefa, tarefa.status == 0 ? 1 : 0)}><i class="bi bi-{tarefa.status == 1 ? 'list-task' : 'check-lg'}"></i></button>
       <span class="form-control form-control-lg">{tarefa.conteudo}</span>
-      <button class="btn btn-warning input-group-text" aria-label="editar" onclick={() => editarTarefa(tarefa)}><i class="bi bi-pencil"></i></button>
-      <button class="btn btn-danger input-group-text" aria-label="excluir" data-bs-toggle="modal" data-bs-target="#alertaModal" onclick={() => excluirTarefa(tarefa)}><i class="bi bi-trash"></i></button>
+      <button class="btn btn-warning input-group-text" aria-label="editar" onclick={() => editarTarefa(tarefa)}><i class="bi bi-pencil-square"></i></button>
+      <button class="btn btn-danger input-group-text" aria-label="excluir" onclick={() => excluirTarefa(tarefa)}><i class="bi bi-trash"></i></button>
     {/if}
   </div>
 {/each}

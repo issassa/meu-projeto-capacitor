@@ -1,102 +1,144 @@
 <script>
-  let coinResult = ''; // 'cara', 'coroa', ou vazio
-  let isFlipping = false; // Estado para controlar a animação de giro
+    /**
+     * @file c-c/+page.svelte
+     * @description Componente Svelte para o jogo de Cara ou Coroa.
+     * Simula o giro de uma moeda e exibe o resultado aleatório.
+     */
 
-  function flipCoin() {
-    isFlipping = true;
-    coinResult = ''; // Limpa o resultado anterior
+    // Variável reativa para armazenar o resultado do giro da moeda.
+    // Pode ser 'cara', 'coroa' ou uma string vazia (estado inicial ou antes de girar).
+    let coinResult = $state('');
+    // Variável reativa para controlar o estado de animação/giro da moeda.
+    // True quando a moeda está "girando", false quando parada.
+    let isFlipping = $state(false);
 
-    // Simula um "giro" com um pequeno atraso antes de revelar o resultado
-    setTimeout(() => {
-      const random = Math.random();
-      if (random < 0.5) {
-        coinResult = 'cara';
-      } else {
-        coinResult = 'coroa';
-      }
-      isFlipping = false;
-    }, 1000); // 1 segundo de "giro"
-  }
+    /**
+     * Função assíncrona que simula o giro da moeda.
+     * Define um tempo de espera para a animação e então determina o resultado.
+     */
+    async function flipCoin() {
+        // Define o estado de giro como verdadeiro para ativar a animação.
+        isFlipping = true;
+        // Limpa o resultado anterior para que o usuário veja a moeda "girando".
+        coinResult = '';
+
+        // Aguarda 1 segundo (1000 milissegundos) para simular o tempo de giro da moeda.
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        // Gera um número aleatório entre 0 e 1.
+        // Se for menor que 0.5, o resultado é 'cara', caso contrário, é 'coroa'.
+        if (Math.random() < 0.5) {
+            coinResult = 'cara';
+        } else {
+            coinResult = 'coroa';
+        }
+        // Define o estado de giro como falso para parar a animação.
+        isFlipping = false;
+    }
 </script>
 
 <style>
-  /* Estilos para o container interno da página */
-  .page-content-container {
-    padding: 1.5rem;
-    border: 1px solid #dee2e6; /* Borda suave */
-    border-radius: 0.4rem;
-    margin-top: 1.5rem;
-  }
+    /* Estilos para o contêiner da página. */
+    .page-content-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Centraliza horizontalmente */
+        justify-content: flex-start; /* Alinha ao topo */
+        padding: 20px;
+        box-sizing: border-box;
+        min-height: calc(100vh - 56px); /* Altura mínima da tela, considerando uma navbar de 56px */
+        background-color: #f8f9fa; /* Cor de fundo clara */
+    }
 
-  /* Estilos para a moeda */
-  .coin {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    background-color: #ffc107; /* Cor de moeda (amarelo Bootstrap) */
-    border: 3px solid #e0a800;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 2rem;
-    font-weight: bold;
-    color: #333;
-    margin: 2rem auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
+    /* Estilos para o contêiner da moeda. */
+    .coin-container {
+        margin-top: 40px; /* Espaçamento superior */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 
-  .coin.cara {
-    background-color: #28a745; /* Verde para Cara */
-    border-color: #218838;
-    color: white;
-  }
+    /* Estilos básicos para a moeda. */
+    .coin {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%; /* Torna o elemento um círculo */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2em;
+        font-weight: bold;
+        color: white;
+        transition: transform 0.5s ease-out, background-color 0.5s ease-out; /* Transição suave para transform e cor de fundo */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para profundidade */
+    }
 
-  .coin.coroa {
-    background-color: #dc3545; /* Vermelho para Coroa */
-    border-color: #c82333;
-    color: white;
-  }
+    /* Estilos quando a moeda está girando. */
+    .coin.flipping {
+        background-color: #6c757d; /* Cinza durante o giro */
+        transform: rotateY(360deg) scale(1.1); /* Animação de giro e leve aumento */
+    }
 
-  .coin.flipping {
-    background-color: #6c757d; /* Cinza durante o giro */
-    border-color: #5a6268;
-    color: white;
-  }
+    /* Estilos quando o resultado é 'cara'. */
+    .coin.cara {
+        background-color: #28a745; /* Verde para 'cara' */
+    }
+
+    /* Estilos quando o resultado é 'coroa'. */
+    .coin.coroa {
+        background-color: #007bff; /* Azul para 'coroa' */
+    }
+
+    /* Estilos para o texto do resultado. */
+    .result {
+        margin-top: 20px;
+        font-size: 1.8em;
+        font-weight: bold;
+        color: #343a40; /* Cor de texto escuro */
+    }
+
+    /* Estilos para o botão de jogar moeda. */
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        font-size: 1.2em;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover:not(:disabled) {
+        background-color: #0056b3;
+        border-color: #004085;
+    }
+
+    .btn-primary:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
 </style>
 
-<div class="container page-content-container">
-  <h2 class="mb-4 text-center">Cara ou Coroa</h2>
+<div class="page-content-container">
+    <h2 class="mt-4">Cara ou Coroa <i class="bi bi-coin"></i></h2>
 
-  <div class="d-flex justify-content-center">
-    <button class="btn btn-primary w-100 mb-4" on:click={flipCoin} disabled={isFlipping}>
-      {#if isFlipping}
-        Girando...
-      {:else}
-        Jogar Moeda
-      {/if}
-    </button>
-  </div>
+    <div class="coin-container">
+        <button class="btn btn-primary mb-4" onclick={flipCoin} disabled={isFlipping}>
+            Jogar Moeda
+        </button>
 
-  <div class="coin {coinResult} {isFlipping ? 'flipping' : ''}">
-    {#if isFlipping}
-      ?
-    {:else if coinResult === 'cara'}
-      CARA
-    {:else if coinResult === 'coroa'}
-      COROA
-    {/if}
-  </div>
+        <div class="coin" class:flipping={isFlipping} class:cara={coinResult === 'cara'} class:coroa={coinResult === 'coroa'}>
+            {#if coinResult === 'cara'}
+                C
+            {:else if coinResult === 'coroa'}
+                K
+            {/if}
+        </div>
 
-  {#if coinResult && !isFlipping}
-    <div class="mt-4 p-3 border rounded text-center">
-      <h4 class="mb-3">Resultado:</h4>
-      <p class="fs-4 fw-bold text-primary">
-        {#if coinResult === 'cara'}
-          Cara!
-        {:else}
-          Coroa!
+        {#if coinResult}
+            <p class="result mt-4">
+                {coinResult === 'cara' ? 'Cara!' : 'Coroa!'}
+            </p>
         {/if}
-      </p>
     </div>
-  {/if}
 </div>
