@@ -29,7 +29,7 @@
         if (palavra.trim() === '') { // Adicionado .trim() para considerar espaços em branco.
             filtradas = dicionario;
             return; // Sai da função.
-        }
+        }      
 
         // Zera o array de palavras filtradas para preenchê-lo com os novos resultados.
         filtradas = [];
